@@ -18,3 +18,15 @@ A boilerplate project to kickstart your Nuxt 3, Vuetify 3, and Pinia projects wi
 ```bash
 git clone https://github.com/hzeeshan/nuxt3-vuetify3-starter.git
 ```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Run the development server
+
+```bash
+npm run dev
+```
