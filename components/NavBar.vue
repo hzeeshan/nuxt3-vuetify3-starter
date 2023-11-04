@@ -69,7 +69,7 @@ const darkIcon = "mdi-theme-light-dark"; // Icon when dark theme is active
 const lightIcon = "mdi-lightbulb-on"; // Icon when light theme is active
 const switchTheme = ref(false);
 const theme = useTheme();
-
+const THEME_KEY = "user_theme_preference";
 let drawer = ref(false);
 
 const navItems = [
@@ -79,7 +79,9 @@ const navItems = [
 ];
 
 const toggleTheme = () => {
-  theme.global.name.value = theme.global.current.value.dark ? "light" : "dark";
+  const newTheme = theme.global.current.value.dark ? "light" : "dark";
+  theme.global.name.value = newTheme;
+  localStorage.setItem(THEME_KEY, newTheme);
   switchTheme.value = theme.global.current.value.dark;
 };
 
@@ -90,6 +92,21 @@ const logout = async () => {
     path: `/auth/login`,
   });
 };
+
+onMounted(() => {
+  const storedThemePreference = localStorage.getItem(THEME_KEY);
+  if (storedThemePreference) {
+    theme.global.name.value = storedThemePreference;
+    switchTheme.value = storedThemePreference === "dark";
+  } else {
+    // If no preference is stored, you can use system preference or default to 'light'
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+    theme.global.name.value = prefersDark ? "dark" : "light";
+    switchTheme.value = prefersDark;
+  }
+});
 </script>
 
 <style scoped>
