@@ -95,17 +95,10 @@ const logout = async () => {
 
 onMounted(() => {
   const storedThemePreference = localStorage.getItem(THEME_KEY);
-  if (storedThemePreference) {
-    theme.global.name.value = storedThemePreference;
-    switchTheme.value = storedThemePreference === "dark";
-  } else {
-    // If no preference is stored, you can use system preference or default to 'light'
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
-    theme.global.name.value = prefersDark ? "dark" : "light";
-    switchTheme.value = prefersDark;
-  }
+
+  // Set to 'light' if no stored preference
+  theme.global.name.value = storedThemePreference || "light";
+  switchTheme.value = theme.global.name.value === "dark";
 });
 </script>
 
