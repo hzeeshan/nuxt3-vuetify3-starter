@@ -30,3 +30,11 @@ npm install
 ```bash
 npm run dev
 ```
+
+### How to update all the versions in Package.json file
+
+```bash
+npm install -g npm-check-updates
+ncu -u
+npm install
+```
